@@ -193,19 +193,14 @@
         1. Set _dateTimeFormat_.[[DateStyle]] to _dateStyle_.
         1. Let _timeStyle_ be ? GetOption(_options_, *"timeStyle"*, *"string"*, « *"full"*, *"long"*, *"medium"*, *"short"* », *undefined*).
         1. Set _dateTimeFormat_.[[TimeStyle]] to _timeStyle_.
-        1. <del>If _dateTimeformat_.[[HourCycle]] is *"h11"* or *"h12"*, then</del>
-          1. <del>Let _pattern_ be _bestFormat_.[[pattern12]].</del>
-          1. <del>Let _rangePatterns_ be _bestFormat_.[[rangePatterns12]].</del>
-        1. <del>Else,</del>
-          1. <del>Let _pattern_ be _bestFormat_.[[pattern]].</del>
-          1. <del>Let _rangePatterns_ be _bestFormat_.[[rangePatterns]].</del>
         1. <del>If _dateStyle_ is not *undefined* or _timeStyle_ is not *undefined*, then</del>
           1. <del>For each row in <emu-xref href="#table-datetimeformat-components"></emu-xref>, except the header row, do</del>
             1. <del>Let _prop_ be the name given in the Property column of the row.</del>
             1. <del>Let _p_ be _formatOptions_.[[&lt;_prop_&gt;]].</del>
             1. <del>If _p_ is not *undefined*, then</del>
               1. <del>Throw a *TypeError* exception.</del>
-          1. <del>Let _bestFormat_ be DateTimeStyleFormat(_dateStyle_, _timeStyle_, _dataLocaleData_).</del>
+          1. <del>Let _styles_ be _dataLocaleData_.[[styles]].[[&lt;_calendar_&gt;]].</del>
+          1. <del>Let _bestFormat_ be DateTimeStyleFormat(_dateStyle_, _timeStyle_, _styles_).</del>
         1. <del>Else,</del>
           1. <del>Let _formats_ be _dataLocaleData_.[[formats]].[[&lt;_calendar_&gt;]].</del>
           1. <del>If _matcher_ is *"basic"*, then</del>
@@ -214,15 +209,17 @@
             1. <del>Let _bestFormat_ be BestFitFormatMatcher(_formatOptions_, _formats_).</del>
         1. <del>For each row in <emu-xref href="#table-datetimeformat-components"></emu-xref>, except the header row, in table order, do</del>
           1. <del>Let _prop_ be the name given in the Property column of the row.</del>
-          1. <del>Let _p_ be _bestFormat_.[[&lt;_prop_&gt;]].</del>
-          1. <del>If _p_ not *undefined*, then</del>
+          1. <del>If _bestFormat_ has a field [[&lt;_prop_&gt;]], then</del>
+            1. <del>Let _p_ be _bestFormat_.[[&lt;_prop_&gt;]].</del>
             1. <del>Set _dateTimeFormat_'s internal slot whose name is the Internal Slot column of the row to _p_.</del>
         1. <del>If _dateTimeFormat_.[[Hour]] is *undefined*, then</del>
           1. <del>Set _dateTimeFormat_.[[HourCycle]] to *undefined*.</del>
+        1. <del>If _dateTimeformat_.[[HourCycle]] is *"h11"* or *"h12"*, then</del>
+          1. <del>Let _pattern_ be _bestFormat_.[[pattern12]].</del>
+          1. <del>Let _rangePatterns_ be _bestFormat_.[[rangePatterns12]].</del>
+        1. <del>Else,</del>
           1. <del>Let _pattern_ be _bestFormat_.[[pattern]].</del>
           1. <del>Let _rangePatterns_ be _bestFormat_.[[rangePatterns]].</del>
-        1. <del>Else,</del>
-          1. XXX.
         1. <ins>Let _expandedOptions_ be a copy of _formatOptions_.</ins>
         1. <ins>Let _needDefaults_ be *true*.</ins>
         1. <ins>For each element _field_ of « *"weekday"*, *"year"*, *"month"*, *"day"*, *"hour"*, *"minute"*, *"second"* » in List order, do</ins>
@@ -657,7 +654,8 @@
             1. Let _p_ be _opt_.[[&lt;_prop_&gt;]].
             1. If _p_ is not *undefined*, then
               1. Throw a *TypeError* exception.
-          1. Let _bestFormat_ be DateTimeStyleFormat(_dateStyle_, _timeStyle_, _dataLocaleData_).
+          1. Let _styles_ be _dataLocaleData_.[[styles]].[[&lt;_calendar_&gt;]].
+          1. Let _bestFormat_ be DateTimeStyleFormat(_dateStyle_, _timeStyle_, _styles_).
         1. Else,
           1. Let _formats_ be _dataLocaleData_.[[formats]].[[&lt;_calendar_&gt;]].
           1. If _matcher_ is *"basic"*, then
